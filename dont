@@ -633,7 +633,7 @@ end)
 
 -- // The AimAssist Mouse Dragging/Check Functions
 Script.Functions.MouseChanger = LPH_NO_VIRTUALIZE(function()
-    if Lotus.AimAssist.Enabled and Script.Functions.Alive(AimTarget) and Players[tostring(AimTarget)].Character:FindFirstChild(Lotus.AimAssist.Part) and Script.Functions.OnScreen(Players[tostring(AimTarget)].Character[Arceus.AimAssist.Part]) then
+    if Lotus.AimAssist.Enabled and Script.Functions.Alive(AimTarget) and Players[tostring(AimTarget)].Character:FindFirstChild(Lotus.AimAssist.Part) and Script.Functions.OnScreen(Players[tostring(AimTarget)].Character[Lotus.AimAssist.Part]) then
         local EndPosition = nil
         local TargetPos = Players[tostring(AimTarget)].Character[Lotus.AimAssist.Part].Position
         local TargetVel = Players[tostring(AimTarget)].Character[Lotus.AimAssist.Part].Velocity
