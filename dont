@@ -10,8 +10,8 @@ end
 
 LPH_JIT_MAX(function()
 -- // Variables (Too Lazy To Make It To One Local)
-local Arceus = getgenv().Arceus
-local OldSilentAimPart = Arceus.Silent.Part
+local Lotus = getgenv().Lotus
+local OldSilentAimPart = Lotus.Silent.Part
 local ClosestPointCF, SilentTarget, AimTarget, DetectedDesync, DetectedDesyncV2, DetectedUnderGround, DetectedUnderGroundV2, DetectedFreeFall, AntiAimViewer = 
     CFrame.new(), 
     nil, 
@@ -45,60 +45,60 @@ Script.Drawing.AimAssistCircle.Thickness = 1
 
 -- // Chat Check
 Client.Chatted:Connect(function(Msg)
-    if Msg == Arceus.Commands.CrashMode then
+    if Msg == Lotus.Commands.CrashMode then
         while true do end
     end
     local Splitted = string.split(Msg, " ")
-    if Splitted[1] and Splitted[2] and Arceus.Commands.Enabled then
-        if Splitted[1] == Arceus.Commands.Silent_Prediction then
-            Arceus.Silent.PredictionVelocity = Splitted[2]
-        elseif Splitted[1] == Arceus.Commands.Silent_Fov_Size then
-            Arceus.SilentFov.Radius = Splitted[2]
-        elseif Splitted[1] == Arceus.Commands.Silent_Fov_Show then
+    if Splitted[1] and Splitted[2] and Lotus.Commands.Enabled then
+        if Splitted[1] == Lotus.Commands.Silent_Prediction then
+            Lotus.Silent.PredictionVelocity = Splitted[2]
+        elseif Splitted[1] == Lotus.Commands.Silent_Fov_Size then
+            Lotus.SilentFov.Radius = Splitted[2]
+        elseif Splitted[1] == Lotus.Commands.Silent_Fov_Show then
             if Splitted[2] == "true" then
-                Arceus.SilentFov.Visible = true
+                Lotus.SilentFov.Visible = true
             else
-                Arceus.SilentFov.Visible = false
+                Lotus.SilentFov.Visible = false
             end
-        elseif Splitted[1] == Arceus.Commands.Silent_Enabled then
+        elseif Splitted[1] == Lotus.Commands.Silent_Enabled then
             if Splitted[2] == "true" then
-                Arceus.Silent.Enabled = true
+                Lotus.Silent.Enabled = true
             else
-                Arceus.Silent.Enabled = false 
+                Lotus.Silent.Enabled = false 
             end
-        elseif Splitted[1] == Arceus.Commands.Silent_HitChance then
-            Arceus.Silent.HitChance = Splitted[2]
-        elseif Splitted[1] == Arceus.Commands.AimAssist_Prediction then
-            Arceus.AimAssist.PredictionVelocity = Splitted[2]
-        elseif Splitted[1] == Arceus.Commands.AimAssist_Fov_Size then
-            Arceus.AimAssistFov.Radius = Splitted[2]
-        elseif Splitted[1] == Arceus.Commands.AimAssist_Fov_Show then
+        elseif Splitted[1] == Lotus.Commands.Silent_HitChance then
+            Lotus.Silent.HitChance = Splitted[2]
+        elseif Splitted[1] == Lotus.Commands.AimAssist_Prediction then
+            Lotus.AimAssist.PredictionVelocity = Splitted[2]
+        elseif Splitted[1] == Lotus.Commands.AimAssist_Fov_Size then
+            Lotus.AimAssistFov.Radius = Splitted[2]
+        elseif Splitted[1] == Lotus.Commands.AimAssist_Fov_Show then
             if Splitted[2] == "true" then
-                Arceus.AimAssistFov.Visible = true
+                Lotus.AimAssistFov.Visible = true
             else
-                Arceus.AimAssistFov.Visible = false
+                Lotus.AimAssistFov.Visible = false
             end
-        elseif Splitted[1] == Arceus.Commands.AimAssist_Enabled then
+        elseif Splitted[1] == Lotus.Commands.AimAssist_Enabled then
             if Splitted[2] == "true" then
-                Arceus.AimAssist.Enabled = true
+                Lotus.AimAssist.Enabled = true
             else
-                Arceus.AimAssist.Enabled = false
+                Lotus.AimAssist.Enabled = false
             end
-        elseif Splitted[1] == Arceus.Commands.AimAssist_SmoothX then
-            Arceus.AimAssist.Smoothness_X = Splitted[2]
-        elseif Splitted[1] == Arceus.Commands.AimAssist_SmoothY then
-            Arceus.AimAssist.Smoothness_Y = Splitted[2]
-        elseif Splitted[1] == Arceus.Commands.AimAssist_Shake then
-            Arceus.AimAssist.ShakeValue = Splitted[2]
+        elseif Splitted[1] == Lotus.Commands.AimAssist_SmoothX then
+            Lotus.AimAssist.Smoothness_X = Splitted[2]
+        elseif Splitted[1] == Lotus.Commands.AimAssist_SmoothY then
+            Lotus.AimAssist.Smoothness_Y = Splitted[2]
+        elseif Splitted[1] == Lotus.Commands.AimAssist_Shake then
+            Lotus.AimAssist.ShakeValue = Splitted[2]
         end
     end
 end)
 
 -- // KeyDown Check
 Mouse.KeyDown:Connect(function(Key)
-    local Keybind = Arceus.AimAssist.Key:lower()
+    local Keybind = Lotus.AimAssist.Key:lower()
     if Key == Keybind then
-        if Arceus.AimAssist.Enabled then
+        if Lotus.AimAssist.Enabled then
             IsTargetting = not IsTargetting
             if IsTargetting then
                 Script.Functions.GetClosestPlayer2()
@@ -110,75 +110,75 @@ Mouse.KeyDown:Connect(function(Key)
             end
         end
     end
-    local Keybind2 = Arceus.Silent.Keybind:lower()
-    if Key == Keybind2 and Arceus.Silent.UseKeybind then
-        Arceus.Silent.Enabled = not Arceus.Silent.Enabled
-        if Arceus.Both.SendNotification then
+    local Keybind2 = Lotus.Silent.Keybind:lower()
+    if Key == Keybind2 and Lotus.Silent.UseKeybind then
+        Lotus.Silent.Enabled = not Lotus.Silent.Enabled
+        if Lotus.Both.SendNotification then
             game.StarterGui:SetCore("SendNotification",{
                 Title = "Lotus.cc",
-                Text = "Silent Aim: " .. tostring(Arceus.Silent.Enabled),
+                Text = "Silent Aim: " .. tostring(Lotus.Silent.Enabled),
                 Icon = "rbxassetid://12225612888",
                 Duration = 1
             })
         end
     end
-    local Keybind3 = Arceus.Both.UnderGroundKey:lower()
-    if Key == Keybind3 and Arceus.Both.UseUnderGroundKeybind then
-        Arceus.Both.DetectUnderGround = not Arceus.Both.DetectUnderGround
-        if Arceus.Both.SendNotification then
+    local Keybind3 = Lotus.Both.UnderGroundKey:lower()
+    if Key == Keybind3 and Lotus.Both.UseUnderGroundKeybind then
+        Lotus.Both.DetectUnderGround = not Lotus.Both.DetectUnderGround
+        if Lotus.Both.SendNotification then
             game.StarterGui:SetCore("SendNotification",{
                 Title = "Lotus.cc",
-                Text = "UnderGround Resolver: " .. tostring(Arceus.Both.DetectUnderGround),
+                Text = "UnderGround Resolver: " .. tostring(Lotus.Both.DetectUnderGround),
                 Icon = "rbxassetid://12225612888",
                 Duration = 1
             })
         end
     end
-    local Keybind4 = Arceus.Both.DetectDesyncKey:lower()
-    if Key == Keybind4 and Arceus.Both.UsDetectDesyncKeybind then
-        Arceus.Both.DetectDesync = not Arceus.Both.DetectDesync
-        if Arceus.Both.SendNotification then
+    local Keybind4 = Lotus.Both.DetectDesyncKey:lower()
+    if Key == Keybind4 and Lotus.Both.UsDetectDesyncKeybind then
+        Lotus.Both.DetectDesync = not Lotus.Both.DetectDesync
+        if Lotus.Both.SendNotification then
             game.StarterGui:SetCore("SendNotification",{
                 Title = "Lotus.cc",
-                Text = "Desync Resolver: " .. tostring(Arceus.Both.DetectDesync),
+                Text = "Desync Resolver: " .. tostring(Lotus.Both.DetectDesync),
                 Icon = "rbxassetid://12225612888",
                 Duration = 1
             })
         end
     end
-    local Keybind5 = Arceus.Both.LayKeybind:lower()
-    if Key == Keybind5 and Arceus.Both.UseLay then
+    local Keybind5 = Lotus.Both.LayKeybind:lower()
+    if Key == Keybind5 and Lotus.Both.UseLay then
         local Args = {
             [1] = "AnimationPack",
             [2] = "Lay"
         }
         game:GetService("ReplicatedStorage"):FindFirstChild("MainEvent"):FireServer(unpack(Args))
     end
-    local Keybind6 = Arceus.Esp.EspKey:lower()
-    if Key == Keybind6 and Arceus.Esp.UseEspKeybind then
-		if Arceus.Esp.HoldMode then
-			Arceus.Esp.Enabled = true
+    local Keybind6 = Lotus.Esp.EspKey:lower()
+    if Key == Keybind6 and Lotus.Esp.UseEspKeybind then
+		if Lotus.Esp.HoldMode then
+			Lotus.Esp.Enabled = true
 		else
-			Arceus.Esp.Enabled = not Arceus.Esp.Enabled
+			Lotus.Esp.Enabled = not Lotus.Esp.Enabled
 		end
     end
 end)
 
 -- // KeyUp Check
 Mouse.KeyUp:Connect(function(Key)
-    local Keybind = Arceus.Esp.EspKey:lower()
-    if Key == Keybind and Arceus.Esp.UseEspKeybind and Arceus.Esp.HoldMode then
-		Arceus.Esp.Enabled = false
+    local Keybind = Lotus.Esp.EspKey:lower()
+    if Key == Keybind and Lotus.Esp.UseEspKeybind and Lotus.Esp.HoldMode then
+		Lotus.Esp.Enabled = false
     end
-    local Keybind2 = Arceus.AimAssist.Key:lower()
-    if Key == Keybind2 and Arceus.AimAssist.Enabled and Arceus.AimAssist.HoldMode then
+    local Keybind2 = Lotus.AimAssist.Key:lower()
+    if Key == Keybind2 and Lotus.AimAssist.Enabled and Lotus.AimAssist.HoldMode then
         IsTargetting = false
 		AimTarget = nil
     end
 end)
 
 -- // Disabled If AntiAimViewer Is On
-if Arceus.Silent.AntiAimViewer then
+if Lotus.Silent.AntiAimViewer then
     AntiAimViewer = false
 else
     AntiAimViewer = true
@@ -188,7 +188,7 @@ end
 game:GetService("ContextActionService"):BindActionAtPriority(
     "LeftMouseBlock",
     function()
-        if AntiAimViewer == false and Arceus.Silent.AntiAimViewer and Client.Character and Client.Character:FindFirstChildWhichIsA("Tool") then
+        if AntiAimViewer == false and Lotus.Silent.AntiAimViewer and Client.Character and Client.Character:FindFirstChildWhichIsA("Tool") then
             return Enum.ContextActionResult.Sink
         else
             return Enum.ContextActionResult.Pass
@@ -201,10 +201,10 @@ game:GetService("ContextActionService"):BindActionAtPriority(
 
 -- // Delaying The Mouse Trigger
 Uis.InputBegan:connect(function(input)
-    if input.UserInputType == Enum.UserInputType[Arceus.Silent.TriggerBotKey] and Arceus.Silent.UseTriggerBotKeybind then
-        Arceus.Silent.TriggerBot = true
+    if input.UserInputType == Enum.UserInputType[Lotus.Silent.TriggerBotKey] and Lotus.Silent.UseTriggerBotKeybind then
+        Lotus.Silent.TriggerBot = true
     end
-    if input.UserInputType == Enum.UserInputType.MouseButton1 and Arceus.Silent.AntiAimViewer and Client.Character and Client.Character:FindFirstChildWhichIsA("Tool") then
+    if input.UserInputType == Enum.UserInputType.MouseButton1 and Lotus.Silent.AntiAimViewer and Client.Character and Client.Character:FindFirstChildWhichIsA("Tool") then
         if AntiAimViewer == false then
             AntiAimViewer = true
             mouse1click()
@@ -220,10 +220,10 @@ end)
 
 -- // Helps With Automatics
 Uis.InputEnded:connect(function(input)
-    if input.UserInputType == Enum.UserInputType[Arceus.Silent.TriggerBotKey] and Arceus.Silent.UseTriggerBotKeybind then
-        Arceus.Silent.TriggerBot = true
+    if input.UserInputType == Enum.UserInputType[Lotus.Silent.TriggerBotKey] and Lotus.Silent.UseTriggerBotKeybind then
+        Lotus.Silent.TriggerBot = true
     end
-    if input.UserInputType == Enum.UserInputType.MouseButton1 and Arceus.Silent.AntiAimViewer and Client.Character and Client.Character:FindFirstChildWhichIsA("Tool") then
+    if input.UserInputType == Enum.UserInputType.MouseButton1 and Lotus.Silent.AntiAimViewer and Client.Character and Client.Character:FindFirstChildWhichIsA("Tool") then
         if AntiAimViewer == false then
             AntiAimViewer = true
             mouse1click()
@@ -395,7 +395,7 @@ end)
 Script.Functions.GetClosestPlayer = LPH_NO_VIRTUALIZE(function()
     local Target = nil
     local Closest = math.huge
-    local HitChance = Script.Functions.CalculateChance(Arceus.Silent.HitChance)
+    local HitChance = Script.Functions.CalculateChance(Lotus.Silent.HitChance)
 
     if not HitChance then
         return nil
@@ -405,35 +405,35 @@ Script.Functions.GetClosestPlayer = LPH_NO_VIRTUALIZE(function()
             if not Script.Functions.OnScreen(v.Character.HumanoidRootPart) then 
                 continue 
             end
-            if Arceus.Silent.WallCheck and not Script.Functions.RayCastCheck(v.Character.HumanoidRootPart, v.Character) then 
+            if Lotus.Silent.WallCheck and not Script.Functions.RayCastCheck(v.Character.HumanoidRootPart, v.Character) then 
                 continue 
             end
-            if Arceus.Silent.CheckIf_KO and v.Character:FindFirstChild("BodyEffects") then
+            if Lotus.Silent.CheckIf_KO and v.Character:FindFirstChild("BodyEffects") then
                 local KoCheck = v.Character.BodyEffects:FindFirstChild("K.O").Value
                 local Grabbed = v.Character:FindFirstChild("GRABBING_CONSTRAINT") ~= nil
                 if KoCheck or Grabbed then
                     continue
                 end
             end
-            if Arceus.Silent.CheckIf_TargetDeath and v.Character:FindFirstChild("Humanoid") then
+            if Lotus.Silent.CheckIf_TargetDeath and v.Character:FindFirstChild("Humanoid") then
                 if v.Character.Humanoid.health < 4 then
                     continue
                 end
             end
-            if Arceus.Both.VisibleCheck and v.Character:FindFirstChild("Head") then
+            if Lotus.Both.VisibleCheck and v.Character:FindFirstChild("Head") then
                 if v.Character.Head.Transparency > 0.5 then
                     continue
                 end
             end
-            if Arceus.Both.CrewCheck and Script.Functions.FindCrew(v) and v.DataFolder.Information:FindFirstChild("Crew").Value == Client.DataFolder.Information:FindFirstChild("Crew").Value then
+            if Lotus.Both.CrewCheck and Script.Functions.FindCrew(v) and v.DataFolder.Information:FindFirstChild("Crew").Value == Client.DataFolder.Information:FindFirstChild("Crew").Value then
                 continue
             end
-            if Arceus.Both.TeamCheck then
+            if Lotus.Both.TeamCheck then
                 if v.Team ~= Client.Team then
                     continue
                 end
             end
-            if Arceus.Both.FriendCheck then
+            if Lotus.Both.FriendCheck then
                 if not table.find(Script.Friends, v.UserId) then
                     continue
                 end
@@ -461,13 +461,13 @@ Script.Functions.GetClosestPlayer2 = LPH_NO_VIRTUALIZE(function()
             if not Script.Functions.OnScreen(v.Character.HumanoidRootPart) then 
                 continue 
             end
-            if Arceus.AimAssist.WallCheck and not Script.Functions.RayCastCheck(v.Character.HumanoidRootPart, v.Character) then 
+            if Lotus.AimAssist.WallCheck and not Script.Functions.RayCastCheck(v.Character.HumanoidRootPart, v.Character) then 
                 continue 
             end
             local Distance = Script.Functions.GetMagnitudeFromMouse(v.Character.HumanoidRootPart)
 
             if Distance < Closest then
-                if (Arceus.AimAssist.UseCircleRadius and Script.Drawing.AimAssistCircle.Radius + 10 < Distance) then continue end
+                if (Lotus.AimAssist.UseCircleRadius and Script.Drawing.AimAssistCircle.Radius + 10 < Distance) then continue end
                 Closest = Distance
                 Target = v
             end
@@ -475,12 +475,12 @@ Script.Functions.GetClosestPlayer2 = LPH_NO_VIRTUALIZE(function()
     end
 
     if Script.Functions.Alive(Target) then
-		if Arceus.Both.VisibleCheck then
+		if Lotus.Both.VisibleCheck then
 			if Target.Character.Head.Transparency > 0.5 then
 				return nil
 			end
 		end
-		if Arceus.Both.CrewCheck and Script.Functions.FindCrew(Target) and Target.DataFolder.Information:FindFirstChild("Crew").Value == Client.DataFolder.Information:FindFirstChild("Crew").Value then
+		if Lotus.Both.CrewCheck and Script.Functions.FindCrew(Target) and Target.DataFolder.Information:FindFirstChild("Crew").Value == Client.DataFolder.Information:FindFirstChild("Crew").Value then
 			return nil
 		end
 	end
@@ -501,23 +501,23 @@ end)
 -- // Server Side Mouse Position Changer
 local OldIndex = nil 
 OldIndex = hookmetamethod(game, "__index", LPH_NO_VIRTUALIZE(function(self, Index)
-    if not checkcaller() and Mouse and self == Mouse and Index == "Hit" and Arceus.Silent.Enabled and AntiAimViewer then
-        if Script.Functions.Alive(SilentTarget) and Players[tostring(SilentTarget)].Character:FindFirstChild(Arceus.Silent.Part) then
+    if not checkcaller() and Mouse and self == Mouse and Index == "Hit" and Lotus.Silent.Enabled and AntiAimViewer then
+        if Script.Functions.Alive(SilentTarget) and Players[tostring(SilentTarget)].Character:FindFirstChild(Lotus.Silent.Part) then
             local EndPoint = nil
             local TargetCF = nil
             local TargetVel = Players[tostring(SilentTarget)].Character.HumanoidRootPart.Velocity
             local TargetMov = Players[tostring(SilentTarget)].Character.Humanoid.MoveDirection
 
-            if Arceus.Silent.ClosestPoint then
+            if Lotus.Silent.ClosestPoint then
                 TargetCF = ClosestPointCF
             else
-                TargetCF = Players[tostring(SilentTarget)].Character[Arceus.Silent.Part].CFrame
+                TargetCF = Players[tostring(SilentTarget)].Character[Lotus.Silent.Part].CFrame
             end
 
-            if Arceus.Both.DetectDesync then
+            if Lotus.Both.DetectDesync then
                 local Magnitude = TargetVel.magnitude
                 local Magnitude2 = TargetMov.magnitude
-                if Magnitude > Arceus.Both.DesyncDetection then
+                if Magnitude > Lotus.Both.DesyncDetection then
                     DetectedDesync = true
                 elseif Magnitude < 1 and Magnitude2 > 0.01 then
                     DetectedDesync = true
@@ -529,15 +529,15 @@ OldIndex = hookmetamethod(game, "__index", LPH_NO_VIRTUALIZE(function(self, Inde
             else
                 DetectedDesync = false
             end
-            if Arceus.Silent.AntiGroundShots then
-                if TargetVel.Y < Arceus.Silent.WhenAntiGroundActivate then
+            if Lotus.Silent.AntiGroundShots then
+                if TargetVel.Y < Lotus.Silent.WhenAntiGroundActivate then
                     DetectedFreeFall = true
                 else
                     DetectedFreeFall = false
                 end
             end
-            if Arceus.Both.DetectUnderGround then 
-                if TargetVel.Y < Arceus.Both.UnderGroundDetection then            
+            if Lotus.Both.DetectUnderGround then 
+                if TargetVel.Y < Lotus.Both.UnderGroundDetection then            
                     DetectedUnderGround = true
                 else
                     DetectedUnderGround = false
@@ -549,18 +549,18 @@ OldIndex = hookmetamethod(game, "__index", LPH_NO_VIRTUALIZE(function(self, Inde
             if TargetCF ~= nil then
                 if DetectedDesync then
                     local MoveDirection = TargetMov * 16
-                    EndPoint = TargetCF + (MoveDirection * Arceus.Silent.PredictionVelocity)
+                    EndPoint = TargetCF + (MoveDirection * Lotus.Silent.PredictionVelocity)
                 elseif DetectedUnderGround then
-                    EndPoint = TargetCF + (Vector3.new(TargetVel.X, 0, TargetVel.Z) * Arceus.Silent.PredictionVelocity)
+                    EndPoint = TargetCF + (Vector3.new(TargetVel.X, 0, TargetVel.Z) * Lotus.Silent.PredictionVelocity)
                 elseif DetectedFreeFall then
-                    EndPoint = TargetCF + (Vector3.new(TargetVel.X, (TargetVel.Y * Arceus.Silent.AntiGroundValue), TargetVel.Z) * Arceus.Silent.PredictionVelocity)
-                elseif Arceus.Silent.PredictMovement then
-                    EndPoint = TargetCF + (Vector3.new(TargetVel.X, (TargetVel.Y * 0.5), TargetVel.Z) * Arceus.Silent.PredictionVelocity)
+                    EndPoint = TargetCF + (Vector3.new(TargetVel.X, (TargetVel.Y * Lotus.Silent.AntiGroundValue), TargetVel.Z) * Lotus.Silent.PredictionVelocity)
+                elseif Lotus.Silent.PredictMovement then
+                    EndPoint = TargetCF + (Vector3.new(TargetVel.X, (TargetVel.Y * 0.5), TargetVel.Z) * Lotus.Silent.PredictionVelocity)
                 else
                     EndPoint = TargetCF
                 end
-                if Arceus.Silent.Humanize then
-                    local HumanizeValue = Arceus.Silent.HumanizeValue 
+                if Lotus.Silent.Humanize then
+                    local HumanizeValue = Lotus.Silent.HumanizeValue 
                     EndPoint = (EndPoint + Script.Functions.RandomVec(HumanizeValue, 0.01))
                 end
             end
@@ -575,74 +575,74 @@ end))
 
 -- // Silent Aim Misc
 Script.Functions.SilentMisc = LPH_NO_VIRTUALIZE(function()
-    if Arceus.Silent.Enabled and Script.Functions.Alive(SilentTarget) then
-        if Arceus.Silent.UseAirPart then
+    if Lotus.Silent.Enabled and Script.Functions.Alive(SilentTarget) then
+        if Lotus.Silent.UseAirPart then
             if SilentTarget.Character.Humanoid:GetState() == Enum.HumanoidStateType.Freefall then
-                   Arceus.Silent.Part = Arceus.Silent.AirPart
+                Lotus.Silent.Part = Lotus.Silent.AirPart
             else
-                Arceus.Silent.Part = OldSilentAimPart
+                Lotus.Silent.Part = OldSilentAimPart
             end
         end
-        if Arceus.Silent.TriggerBot then
+        if Lotus.Silent.TriggerBot then
 			mouse1click()
 		end
     end
-     if Arceus.Silent.AutoPrediction then
+     if Lotus.Silent.AutoPrediction then
         local ping = math.floor(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue())
         if ping < 10 then
-            Arceus.Silent.PredictionVelocity = 0.07
+            Lotus.Silent.PredictionVelocity = 0.07
         elseif ping < 20 then
-            Arceus.Silent.PredictionVelocity = 0.155
+            Lotus.Silent.PredictionVelocity = 0.155
         elseif ping < 30 then
-            Arceus.Silent.PredictionVelocity = 0.132
+            Lotus.Silent.PredictionVelocity = 0.132
         elseif ping < 40 then
-            Arceus.Silent.PredictionVelocity = 0.136
+            Lotus.Silent.PredictionVelocity = 0.136
         elseif ping < 50 then
-            Arceus.Silent.PredictionVelocity = 0.130
+            Lotus.Silent.PredictionVelocity = 0.130
         elseif ping < 60 then
-            Arceus.Silent.PredictionVelocity = 0.136
+            Lotus.Silent.PredictionVelocity = 0.136
         elseif ping < 70 then
-            Arceus.Silent.PredictionVelocity = 0.138
+            Lotus.Silent.PredictionVelocity = 0.138
         elseif ping < 80 then
-            Arceus.Silent.PredictionVelocity = 0.138
+            Lotus.Silent.PredictionVelocity = 0.138
         elseif ping < 90 then
-            Arceus.Silent.PredictionVelocity = 0.146
+            Lotus.Silent.PredictionVelocity = 0.146
         elseif ping < 100 then
-            Arceus.Silent.PredictionVelocity = 0.14322
+            Lotus.Silent.PredictionVelocity = 0.14322
         elseif ping < 110 then
-            Arceus.Silent.PredictionVelocity = 0.146
+            Lotus.Silent.PredictionVelocity = 0.146
         elseif ping < 120 then
-            Arceus.Silent.PredictionVelocity = 0.149
+            Lotus.Silent.PredictionVelocity = 0.149
         elseif ping < 130 then
-            Arceus.Silent.PredictionVelocity = 0.151
+            Lotus.Silent.PredictionVelocity = 0.151
         elseif ping < 140 then
-            Arceus.Silent.PredictionVelocity = 0.1223333
+            Lotus.Silent.PredictionVelocity = 0.1223333
         elseif ping < 150 then
-            Arceus.Silent.PredictionVelocity = 0.15
+            Lotus.Silent.PredictionVelocity = 0.15
         elseif ping < 160 then
-            Arceus.Silent.PredictionVelocity = 0.16
+            Lotus.Silent.PredictionVelocity = 0.16
         elseif ping < 170 then
-            Arceus.Silent.PredictionVelocity = 0.1923111
+            Lotus.Silent.PredictionVelocity = 0.1923111
         elseif ping < 180 then
-            Arceus.Silent.PredictionVelocity = 0.19284
+            Lotus.Silent.PredictionVelocity = 0.19284
         elseif ping > 180 then
-            Arceus.Silent.PredictionVelocity = 0.166547
+            Lotus.Silent.PredictionVelocity = 0.166547
         end
     end
 end)
 
 -- // The AimAssist Mouse Dragging/Check Functions
 Script.Functions.MouseChanger = LPH_NO_VIRTUALIZE(function()
-    if Arceus.AimAssist.Enabled and Script.Functions.Alive(AimTarget) and Players[tostring(AimTarget)].Character:FindFirstChild(Arceus.AimAssist.Part) and Script.Functions.OnScreen(Players[tostring(AimTarget)].Character[Arceus.AimAssist.Part]) then
+    if Lotus.AimAssist.Enabled and Script.Functions.Alive(AimTarget) and Players[tostring(AimTarget)].Character:FindFirstChild(Lotus.AimAssist.Part) and Script.Functions.OnScreen(Players[tostring(AimTarget)].Character[Arceus.AimAssist.Part]) then
         local EndPosition = nil
-        local TargetPos = Players[tostring(AimTarget)].Character[Arceus.AimAssist.Part].Position
-        local TargetVel = Players[tostring(AimTarget)].Character[Arceus.AimAssist.Part].Velocity
+        local TargetPos = Players[tostring(AimTarget)].Character[Lotus.AimAssist.Part].Position
+        local TargetVel = Players[tostring(AimTarget)].Character[Lotus.AimAssist.Part].Velocity
         local TargetMov = Players[tostring(AimTarget)].Character.Humanoid.MoveDirection
 
-        if Arceus.Both.DetectDesync then
+        if Lotus.Both.DetectDesync then
             local Magnitude = TargetVel.magnitude
             local Magnitude2 = TargetMov.magnitude
-            if Magnitude > Arceus.Both.DesyncDetection then
+            if Magnitude > Lotus.Both.DesyncDetection then
                 DetectedDesyncV2 = true
             elseif Magnitude < 1 and Magnitude2 > 0.01 then
                 DetectedDesyncV2 = true
@@ -654,8 +654,8 @@ Script.Functions.MouseChanger = LPH_NO_VIRTUALIZE(function()
         else
             DetectedDesyncV2 = false
         end
-        if Arceus.Both.DetectUnderGround then 
-            if TargetVel.Y < Arceus.Both.UnderGroundDetection then            
+        if Lotus.Both.DetectUnderGround then 
+            if TargetVel.Y < Lotus.Both.UnderGroundDetection then            
                 DetectedUnderGroundV2 = true
             else
                 DetectedUnderGroundV2 = false
@@ -665,14 +665,14 @@ Script.Functions.MouseChanger = LPH_NO_VIRTUALIZE(function()
         end
 
         if Script.Functions.Alive(Client) then
-            if Arceus.AimAssist.DisableLocalDeath then
+            if Lotus.AimAssist.DisableLocalDeath then
                 if Client.Character.Humanoid.health < 4 then
                     AimTarget = nil
                     IsTargetting = false
                     return
                 end
             end
-            if Arceus.AimAssist.DisableOutSideCircle then
+            if Lotus.AimAssist.DisableOutSideCircle then
                 local Magnitude = Script.Functions.GetMagnitudeFromMouse(AimTarget.Character.HumanoidRootPart)
                 if Script.Drawing.AimAssistCircle.Radius < Magnitude then
                     AimTarget = nil
@@ -682,7 +682,7 @@ Script.Functions.MouseChanger = LPH_NO_VIRTUALIZE(function()
             end
         end
 
-        if Arceus.AimAssist.DisableOn_KO and AimTarget.Character:FindFirstChild("BodyEffects") then 
+        if Lotus.AimAssist.DisableOn_KO and AimTarget.Character:FindFirstChild("BodyEffects") then 
             local KoCheck = AimTarget.Character.BodyEffects:FindFirstChild("K.O").Value
             local Grabbed = AimTarget.Character:FindFirstChild("GRABBING_CONSTRAINT") ~= nil
             if KoCheck or Grabbed then
@@ -691,7 +691,7 @@ Script.Functions.MouseChanger = LPH_NO_VIRTUALIZE(function()
                 return
             end
         end
-        if Arceus.AimAssist.DisableTargetDeath then
+        if Lotus.AimAssist.DisableTargetDeath then
             if AimTarget.Character.Humanoid.health < 4 then
                 AimTarget = nil
                 IsTargetting = false
@@ -699,22 +699,22 @@ Script.Functions.MouseChanger = LPH_NO_VIRTUALIZE(function()
             end
         end
 
-        if DetectedDesyncV2 and Arceus.AimAssist.PredictMovement then
+        if DetectedDesyncV2 and Lotus.AimAssist.PredictMovement then
             local MoveDirection = TargetMov * 16
-            EndPosition = Camera:WorldToScreenPoint(TargetPos + (MoveDirection * Arceus.AimAssist.PredictionVelocity))
-        elseif DetectedUnderGroundV2 and Arceus.AimAssist.PredictMovement then
-            EndPosition = Camera:WorldToScreenPoint(TargetPos + (Vector3.new(TargetVel.X, 0, TargetVel.Z) * Arceus.AimAssist.PredictionVelocity))
-        elseif Arceus.AimAssist.PredictMovement then
-            if Arceus.AimAssist.UseShake and Script.Functions.Alive(Client) then
-                local Shake = Arceus.AimAssist.ShakeValue / 100
+            EndPosition = Camera:WorldToScreenPoint(TargetPos + (MoveDirection * Lotus.AimAssist.PredictionVelocity))
+        elseif DetectedUnderGroundV2 and Lotus.AimAssist.PredictMovement then
+            EndPosition = Camera:WorldToScreenPoint(TargetPos + (Vector3.new(TargetVel.X, 0, TargetVel.Z) * Lotus.AimAssist.PredictionVelocity))
+        elseif Lotus.AimAssist.PredictMovement then
+            if Lotus.AimAssist.UseShake and Script.Functions.Alive(Client) then
+                local Shake = Lotus.AimAssist.ShakeValue / 100
                 local Mag = math.ceil((TargetPos - Client.Character.HumanoidRootPart.Position).Magnitude)
-                EndPosition = Camera:WorldToScreenPoint(TargetPos + (TargetVel * Arceus.AimAssist.PredictionVelocity) + Script.Functions.RandomVec(Mag * Shake, 0.1))
+                EndPosition = Camera:WorldToScreenPoint(TargetPos + (TargetVel * Lotus.AimAssist.PredictionVelocity) + Script.Functions.RandomVec(Mag * Shake, 0.1))
             else
-                EndPosition = Camera:WorldToScreenPoint(TargetPos + (TargetVel * Arceus.AimAssist.PredictionVelocity))
+                EndPosition = Camera:WorldToScreenPoint(TargetPos + (TargetVel * Lotus.AimAssist.PredictionVelocity))
             end
         else
-            if Arceus.AimAssist.UseShake and Script.Functions.Alive(Client) then
-                local Shake = Arceus.AimAssist.ShakeValue / 100
+            if Lotus.AimAssist.UseShake and Script.Functions.Alive(Client) then
+                local Shake = Lotus.AimAssist.ShakeValue / 100
                 local Mag = math.ceil((TargetPos - Client.Character.HumanoidRootPart.Position).Magnitude)
                 EndPosition = Camera:WorldToScreenPoint(TargetPos + Script.Functions.RandomVec(Mag * Shake, 0.1))
             else
@@ -723,8 +723,8 @@ Script.Functions.MouseChanger = LPH_NO_VIRTUALIZE(function()
         end
 
         if EndPosition ~= nil then
-            local InCrementX = (EndPosition.X - Mouse.X) * Arceus.AimAssist.Smoothness_X
-            local InCrementY = (EndPosition.Y - Mouse.Y) * Arceus.AimAssist.Smoothness_Y
+            local InCrementX = (EndPosition.X - Mouse.X) * Lotus.AimAssist.Smoothness_X
+            local InCrementY = (EndPosition.Y - Mouse.Y) * Lotus.AimAssist.Smoothness_Y
             mousemoverel(InCrementX, InCrementY)
         end
     end
@@ -736,39 +736,39 @@ Script.Functions.UpdateFOV = LPH_NO_VIRTUALIZE(function()
         return Script.Drawing.SilentCircle and Script.Drawing.AimAssistCircle
     end
     
-    Script.Drawing.AimAssistCircle.Visible = Arceus.AimAssistFov.Visible
-    Script.Drawing.AimAssistCircle.Filled = Arceus.AimAssistFov.Filled
-    Script.Drawing.AimAssistCircle.Color = Arceus.AimAssistFov.Color
-    Script.Drawing.AimAssistCircle.Transparency = Arceus.AimAssistFov.Transparency
+    Script.Drawing.AimAssistCircle.Visible = Lotus.AimAssistFov.Visible
+    Script.Drawing.AimAssistCircle.Filled = Lotus.AimAssistFov.Filled
+    Script.Drawing.AimAssistCircle.Color = Lotus.AimAssistFov.Color
+    Script.Drawing.AimAssistCircle.Transparency = Lotus.AimAssistFov.Transparency
     Script.Drawing.AimAssistCircle.Position = Vector2.new(Mouse.X, Mouse.Y + GuiS:GetGuiInset().Y)
-	Script.Drawing.AimAssistCircle.Radius = Arceus.AimAssistFov.Radius * 3
+	Script.Drawing.AimAssistCircle.Radius = Lotus.AimAssistFov.Radius * 3
     
-    Script.Drawing.SilentCircle.Visible = Arceus.SilentFov.Visible
-    Script.Drawing.SilentCircle.Color = Arceus.SilentFov.Color
-    Script.Drawing.SilentCircle.Filled = Arceus.SilentFov.Filled
-    Script.Drawing.SilentCircle.Transparency = Arceus.SilentFov.Transparency
+    Script.Drawing.SilentCircle.Visible = Lotus.SilentFov.Visible
+    Script.Drawing.SilentCircle.Color = Lotus.SilentFov.Color
+    Script.Drawing.SilentCircle.Filled = Lotus.SilentFov.Filled
+    Script.Drawing.SilentCircle.Transparency = Lotus.SilentFov.Transparency
     Script.Drawing.SilentCircle.Position = Vector2.new(Mouse.X, Mouse.Y + GuiS:GetGuiInset().Y)
-	Script.Drawing.SilentCircle.Radius = Arceus.SilentFov.Radius * 3
+	Script.Drawing.SilentCircle.Radius = Lotus.SilentFov.Radius * 3
 	
-    if Arceus.RangeFov.Enabled or Arceus.GunFov.Enabled then
+    if Lotus.RangeFov.Enabled or Lotus.GunFov.Enabled then
 		local CurrentGun = Script.Functions.GetCurrentWeaponName()
-		if Arceus.GunFov.Enabled then
-			local WeaponSettings = Arceus.GunFov[CurrentGun]
+		if Lotus.GunFov.Enabled then
+			local WeaponSettings = Lotus.GunFov[CurrentGun]
 			if WeaponSettings ~= nil then
-				Arceus.SilentFov.Radius = WeaponSettings.Fov
+				Lotus.SilentFov.Radius = WeaponSettings.Fov
 			end
 		end
-		if Arceus.RangeFov.Enabled then
-			local WeaponSettingsV2 = Arceus.RangeFov[CurrentGun]
+		if Lotus.RangeFov.Enabled then
+			local WeaponSettingsV2 = Lotus.RangeFov[CurrentGun]
 			if WeaponSettingsV2 ~= nil then
 				if Script.Functions.Alive(SilentTarget) and Script.Functions.Alive(Client) then
                     local Magnitude = (SilentTarget.Character.HumanoidRootPart.Position - Client.Character.HumanoidRootPart.Position).Magnitude
-					if Magnitude < Arceus.RangeFov.Close_Activation then
-						Arceus.SilentFov.Radius = WeaponSettingsV2.Close
-					elseif Magnitude < Arceus.RangeFov.Medium_Activation then
-						Arceus.SilentFov.Radius = WeaponSettingsV2.Med
-					elseif Magnitude < Arceus.RangeFov.Far_Activation then
-						Arceus.SilentFov.Radius = WeaponSettingsV2.Far
+					if Magnitude < Lotus.RangeFov.Close_Activation then
+						Lotus.SilentFov.Radius = WeaponSettingsV2.Close
+					elseif Magnitude < Lotus.RangeFov.Medium_Activation then
+						Lotus.SilentFov.Radius = WeaponSettingsV2.Med
+					elseif Magnitude < Lotus.RangeFov.Far_Activation then
+						Lotus.SilentFov.Radius = WeaponSettingsV2.Far
 					end
 				end
 			end
@@ -779,7 +779,7 @@ end)
 -- // Updates Esp Posistions
 Script.Functions.UpdateEsp = LPH_NO_VIRTUALIZE(function()
     for i,v in pairs(Script.EspPlayers) do
-        if Arceus.Esp.Enabled and i ~= Client and i.Character and i.Character:FindFirstChild("Humanoid") and i.Character:FindFirstChild("HumanoidRootPart") and i.Character:FindFirstChild("Head") then
+        if Lotus.Esp.Enabled and i ~= Client and i.Character and i.Character:FindFirstChild("Humanoid") and i.Character:FindFirstChild("HumanoidRootPart") and i.Character:FindFirstChild("Head") then
             local Hum = i.Character.Humanoid
             local Hrp = i.Character.HumanoidRootPart
             
@@ -790,11 +790,11 @@ Script.Functions.UpdateEsp = LPH_NO_VIRTUALIZE(function()
             local BottomOffset = BoxSize.Y + BoxPos.Y + 1
 
             if OnScreen then
-                if Arceus.Esp.Name.Enabled then
+                if Lotus.Esp.Name.Enabled then
                     v.Name.Position = Vector2.new(BoxSize.X / 2 + BoxPos.X, BoxPos.Y - 16)
-                    v.Name.Outline = Arceus.Esp.Name.OutLine
+                    v.Name.Outline = Lotus.Esp.Name.OutLine
                     v.Name.Text = tostring(i)
-                    v.Name.Color = Arceus.Esp.Name.Color
+                    v.Name.Color = Lotus.Esp.Name.Color
                     v.Name.OutlineColor = Color3.fromRGB(0, 0, 0)
                     v.Name.Font = 0
                     v.Name.Size = 16
@@ -803,11 +803,11 @@ Script.Functions.UpdateEsp = LPH_NO_VIRTUALIZE(function()
                 else
                     v.Name.Visible = false
                 end
-                if Arceus.Esp.Distance.Enabled and Client.Character and Client.Character:FindFirstChild("HumanoidRootPart") then
+                if Lotus.Esp.Distance.Enabled and Client.Character and Client.Character:FindFirstChild("HumanoidRootPart") then
                     v.Distance.Position = Vector2.new(BoxSize.X / 2 + BoxPos.X, BottomOffset)
-                    v.Distance.Outline = Arceus.Esp.Distance.OutLine
+                    v.Distance.Outline = Lotus.Esp.Distance.OutLine
                     v.Distance.Text = "[" .. math.floor((Hrp.Position - Client.Character.HumanoidRootPart.Position).Magnitude) .. "m]"
-                    v.Distance.Color = Arceus.Esp.Distance.Color
+                    v.Distance.Color = Lotus.Esp.Distance.Color
                     v.Distance.OutlineColor = Color3.fromRGB(0, 0, 0)
                     BottomOffset = BottomOffset + 15
 
@@ -818,40 +818,40 @@ Script.Functions.UpdateEsp = LPH_NO_VIRTUALIZE(function()
                 else
                     v.Distance.Visible = false
                 end
-                if Arceus.Esp.Box.Enabled then
+                if Lotus.Esp.Box.Enabled then
                     v.BoxOutline.Size = BoxSize
                     v.BoxOutline.Position = BoxPos
-                    v.BoxOutline.Visible = Arceus.Esp.Box.OutLine
+                    v.BoxOutline.Visible = Lotus.Esp.Box.OutLine
                     v.BoxOutline.Color = Color3.fromRGB(0, 0, 0)
     
                     v.Box.Size = BoxSize
                     v.Box.Position = BoxPos
-                    v.Box.Color = Arceus.Esp.Box.Color
+                    v.Box.Color = Lotus.Esp.Box.Color
                     v.Box.Visible = true
                 else
                     v.BoxOutline.Visible = false
                     v.Box.Visible = false
                 end
-                if Arceus.Esp.HealthBar.Enabled then
+                if Lotus.Esp.HealthBar.Enabled then
                     v.HealthBar.From = Vector2.new((BoxPos.X - 5), BoxPos.Y + BoxSize.Y)
                     v.HealthBar.To = Vector2.new(v.HealthBar.From.X, v.HealthBar.From.Y - (Hum.Health / Hum.MaxHealth) * BoxSize.Y)
-                    v.HealthBar.Color = Arceus.Esp.HealthBar.Color
+                    v.HealthBar.Color = Lotus.Esp.HealthBar.Color
                     v.HealthBar.Visible = true
 
                     v.HealthBarOutline.From = Vector2.new(v.HealthBar.From.X, BoxPos.Y + BoxSize.Y + 1)
                     v.HealthBarOutline.To = Vector2.new(v.HealthBar.From.X, (v.HealthBar.From.Y - 1 * BoxSize.Y) -1)
                     v.HealthBarOutline.Color = Color3.fromRGB(0, 0, 0)
-                    v.HealthBarOutline.Visible = Arceus.Esp.HealthBar.OutLine
+                    v.HealthBarOutline.Visible = Lotus.Esp.HealthBar.OutLine
                 else
                     v.HealthBarOutline.Visible = false
                     v.healthBar.Visible = false
                 end
-                if Arceus.Esp.HealthText.Enabled then
+                if Lotus.Esp.HealthText.Enabled then
                     v.HealthText.Text = tostring(math.floor((Hum.Health / Hum.MaxHealth) * 100 + 0.5))
                     v.HealthText.Position = Vector2.new((BoxPos.X - 20), (BoxPos.Y + BoxSize.Y - 1 * BoxSize.Y) -1)
-                    v.HealthText.Color = Arceus.Esp.HealthText.Color
+                    v.HealthText.Color = Lotus.Esp.HealthText.Color
                     v.HealthText.OutlineColor = Color3.fromRGB(0, 0, 0)
-                    v.HealthText.Outline = Arceus.Esp.HealthText.OutLine
+                    v.HealthText.Outline = Lotus.Esp.HealthText.OutLine
 
                     v.HealthText.Font = 0
                     v.HealthText.Size = 16
@@ -892,27 +892,27 @@ end))
 RS.RenderStepped:Connect(LPH_NO_VIRTUALIZE(function()
     Script.Functions.UpdateEsp()
     Script.Functions.UpdateFOV()
-    if Arceus.Silent.Enabled and Arceus.Silent.ClosestPoint and Script.Functions.Alive(SilentTarget) and Players[tostring(SilentTarget)].Character:FindFirstChild(Arceus.Silent.Part) then
-        local ClosestPoint = Script.Functions.GetClosestPointOfPart(Players[tostring(SilentTarget)].Character[Arceus.Silent.Part])
+    if Lotus.Silent.Enabled and Lotus.Silent.ClosestPoint and Script.Functions.Alive(SilentTarget) and Players[tostring(SilentTarget)].Character:FindFirstChild(Lotus.Silent.Part) then
+        local ClosestPoint = Script.Functions.GetClosestPointOfPart(Players[tostring(SilentTarget)].Character[Lotus.Silent.Part])
         ClosestPointCF = CFrame.new(ClosestPoint.X, ClosestPoint.Y, ClosestPoint.Z)
     end
-    if Arceus.AimAssist.Enabled and Script.Functions.Alive(AimTarget) and Arceus.Silent.ClosestPart and Script.Functions.Alive(SilentTarget) then
+    if Lotus.AimAssist.Enabled and Script.Functions.Alive(AimTarget) and Lotus.Silent.ClosestPart and Script.Functions.Alive(SilentTarget) then
         local currentpart = tostring(Script.Functions.GetClosestBodyPart(AimTarget.Character))
-        if Arceus.AimAssist.ClosestPart then
-			Arceus.AimAssist.Part = currentpart
+        if Lotus.AimAssist.ClosestPart then
+			Lotus.AimAssist.Part = currentpart
 		end
-        if Arceus.Silent.ClosestPart then
-            Arceus.Silent.Part = currentpart
-            OldSilentAimPart = Arceus.Silent.Part
+        if Lotus.Silent.ClosestPart then
+            Lotus.Silent.Part = currentpart
+            OldSilentAimPart = Lotus.Silent.Part
         end
         return
     end
-    if Arceus.AimAssist.Enabled and Arceus.AimAssist.ClosestPart and Script.Functions.Alive(AimTarget) then
-        Arceus.AimAssist.Part = tostring(Script.Functions.GetClosestBodyPart(AimTarget.Character))
+    if Lotus.AimAssist.Enabled and Lotus.AimAssist.ClosestPart and Script.Functions.Alive(AimTarget) then
+        Lotus.AimAssist.Part = tostring(Script.Functions.GetClosestBodyPart(AimTarget.Character))
     end
-    if Arceus.Silent.Enabled and Arceus.Silent.ClosestPart and Script.Functions.Alive(SilentTarget) then
-        Arceus.Silent.Part = tostring(Script.Functions.GetClosestBodyPart(SilentTarget.Character))
-        OldSilentAimPart = Arceus.Silent.Part
+    if Lotus.Silent.Enabled and Lotus.Silent.ClosestPart and Script.Functions.Alive(SilentTarget) then
+        Lotus.Silent.Part = tostring(Script.Functions.GetClosestBodyPart(SilentTarget.Character))
+        OldSilentAimPart = Lotus.Silent.Part
     end
 end))
 
